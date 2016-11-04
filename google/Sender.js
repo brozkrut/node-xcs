@@ -30,11 +30,12 @@ function Sender(senderID, serverKey) {
         port: Constants.FCM_SEND_PORT,
         host: Constants.FCM_SEND_ENDPOINT,
         legacySSL: true,
-        preferredSaslMechanism: Constants.FCM_PREFERRED_SASL
+        preferredSaslMechanism: Constants.FCM_PREFERRED_SASL,
+        reconnect: true
     });
 
-    this.client.connection.socket.setTimeout(0);
-    this.client.connection.socket.setKeepAlive(true, 10000);
+    this.client.connection.socket.setTimeout(60000);
+    this.client.connection.socket.setKeepAlive(true, 30000);
 
     this.client.on('online', function () {
         self.events.emit('connected');
